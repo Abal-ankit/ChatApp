@@ -1,0 +1,19 @@
+# render.yaml
+services:
+  - type: web
+    name: chat-frontend
+    env: docker
+    plan: free
+    dockerfilePath: ./frontend/Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    healthCheckPath: /
+
+  - type: web
+    name: chat-backend
+    env: docker
+    plan: free
+    dockerfilePath: ./backend/Dockerfile
+    buildCommand: ""
+    startCommand: ""
+    healthCheckPath: /

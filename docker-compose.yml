@@ -1,34 +1,48 @@
+# services:
+#   frontend:
+#     container_name: chat-frontend
+#     build:
+#       context: ./frontend
+#     ports:
+#       - "3000:5173"
+#     depends_on:
+#       - backend
+#     restart: unless-stopped
+
+#   backend:
+#     container_name: chat-backend
+#     build:
+#       context: ./backend
+#     ports:
+#       - "8000:8000"
+#     # depends_on:
+#     #   - mongodb
+#     env_file:
+#       - ./backend/.env
+#     restart: unless-stopped
+
+#   mongodb:
+#     container_name: mongodb-container
+#     image: mongo
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - mongo-data:/data/db
+#     restart: unless-stopped
+
+# volumes:
+#   mongo-data:
+
+version: "3.9"
 services:
-  frontend:
-    container_name: chat-frontend
-    build:
-      context: ./frontend
-    ports:
-      - "3000:5173"
-    depends_on:
-      - backend
-    restart: unless-stopped
-
   backend:
-    container_name: chat-backend
-    build:
-      context: ./backend
+    build: ./backend
     ports:
-      - "8000:8000"
-    depends_on:
-      - mongodb
-    env_file:
-      - ./backend/.env
-    restart: unless-stopped
+      - "5000:5000"
+    environment:
+      - MONGO_URI=${MONGO_URI}
 
-  mongodb:
-    container_name: mongodb-container
-    image: mongo
+  frontend:
+    build: ./frontend
     ports:
-      - "27017:27017"
-    volumes:
-      - mongo-data:/data/db
-    restart: unless-stopped
-
-volumes:
-  mongo-data:
+      - "3000:3000"
